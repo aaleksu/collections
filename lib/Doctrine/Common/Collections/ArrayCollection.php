@@ -382,4 +382,33 @@ class ArrayCollection implements Collection, Selectable
 
         return new static($filtered);
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public function sum($property, $usePropertyAsMethod = false)
+    {
+        $sum = 0;
+        foreach($this->_elements as $element) {
+            if($isMethod) {
+                $method = $property;
+            }
+            else {
+                $method = 'get' . ucfirst($property);
+            }
+
+            if(method_exists($element, $method)) {
+                $fieldValue = call_user_func(array($element, $method));
+                if(! is_int($fieldValue)) {
+                    return $sum;
+                }
+                $sum += $fieldValue;
+            }
+            else {
+                return $sum;
+            }
+        }
+
+        return $sum;
+    }
 }
