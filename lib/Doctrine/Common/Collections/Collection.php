@@ -257,4 +257,16 @@ interface Collection extends Countable, IteratorAggregate, ArrayAccess
      * @return array
      */
     public function slice($offset, $length = null);
+    
+    /**
+     * Computes sum of properties values
+     * 
+     * If collection element has given property or method and this method returns integer value 
+     * sum method will return sum of all values of the property from whole collection
+     *
+     * @param string $property
+     * @param bool $usePropertyAsMethod
+     * @return integer
+     */
+    function sum($property, $usePropertyAsMethod = false);
 }
